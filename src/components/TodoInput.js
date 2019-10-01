@@ -1,52 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-class TodoInput extends Component {
-  state = {
-    input: ''
-  }
+export default function TodoInput({ addTodo }) {
+  const [input, setInput] = useState('');
 
-  componentDidMount() {
-    document.addEventListener('keypress', this.handleKeyPress);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.handleKeyPress); 
-  }
-
-  handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      this.handleAdd();
-    }
+  const handleChange = (event) => {
+    setInput(event.target.value);
   };
 
-  handleChange = (event) => {
-    this.setState({ input: event.target.value });
-  }
-
-  handleAdd = () => {
-    const { addTodo } = this.props;
-    const { input } = this.state;
-
+  const handleAdd = () => {
     if (input === '') {
       alert('값을 입력해주세요.');
       return;
     }
     
     addTodo(input);
-    this.setState({ input: '' });
-  }
+    setInput('');
+  };
 
-  render() {
-    const { input } = this.state;
-    const { handleChange, handleAdd } = this;
-    return (
-      <>
-        <input value={input} onChange={handleChange} />
-        <button onClick={handleAdd}>추가</button>
-      </>
-    );
-  }
-}
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === "Enter") {
+      handleAdd();
+    }
+  }, [handleAdd]);
 
-export default TodoInput;
+  useEffect(() => {
+    document.addEventListener('keypress', handleKeyPress);
+    return () => {
+      document.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
+  return (
+    <>
+      <input value={input} onChange={handleChange} />
+      <button onClick={handleAdd}>추가</button>
+    </>
+  );
+};
