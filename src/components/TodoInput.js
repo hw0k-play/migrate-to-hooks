@@ -7,7 +7,7 @@ export default function TodoInput({ addTodo }) {
     setInput(event.target.value);
   };
 
-  const handleAdd = () => {
+  const handleAdd = useCallback(() => {
     if (input === '') {
       alert('값을 입력해주세요.');
       return;
@@ -15,7 +15,7 @@ export default function TodoInput({ addTodo }) {
     
     addTodo(input);
     setInput('');
-  };
+  }, [input, addTodo]);
 
   const handleKeyPress = useCallback((event) => {
     if (event.key === "Enter") {
