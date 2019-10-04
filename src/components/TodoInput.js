@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import useAddTodo from '../hooks/useAddTodo';
 
-export default function TodoInput({ onAdd }) {
+export default function TodoInput() {
+  const onAdd = useAddTodo();
   const [input, setInput] = useState('');
 
   const handleChange = (event) => {

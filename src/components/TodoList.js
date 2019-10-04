@@ -1,7 +1,9 @@
 import React from 'react';
-import TodoItemContainer from '../containers/TodoItemContainer';
+import useTodos from '../hooks/useTodos';
+import TodoItem from './TodoItem';
 
-export default function TodoList({ todos }) {
-  const itemRender = todos.map(todo => <TodoItemContainer key={todo.id} todo={todo} />);
+export default function TodoList() {
+  const todos = useTodos();
+  const itemRender = todos.map(todo => <TodoItem key={todo.id} todo={todo} />);
   return <ul>{itemRender}</ul>;
 };
