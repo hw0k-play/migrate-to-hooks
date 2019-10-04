@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-export default function TodoInput({ addTodo }) {
+export default function TodoInput({ onAdd }) {
   const [input, setInput] = useState('');
 
   const handleChange = (event) => {
@@ -13,9 +13,9 @@ export default function TodoInput({ addTodo }) {
       return;
     }
     
-    addTodo(input);
+    onAdd(input);
     setInput('');
-  }, [input, addTodo]);
+  }, [input, onAdd]);
 
   const handleKeyPress = useCallback((event) => {
     if (event.key === "Enter") {

@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function TodoItem({ todo, toggleTodo, removeTodo }) {
-  const handleToggle = () => { toggleTodo(todo.id); }
-  const handleRemove = () => { removeTodo(todo.id); }
+export default function TodoItem({ todo, onToggle, onRemove }) {
+  const handleToggle = () => { onToggle(todo.id); }
+  const handleRemove = () => { onRemove(todo.id); }
   return (
     <li>
       <span

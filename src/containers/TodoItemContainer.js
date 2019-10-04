@@ -1,10 +1,11 @@
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { removeTodo, toggleTodo } from '../reducers/todo.reducer';
 import TodoItem from '../components/TodoItem';
 
-const mapDispatchToProps = (dispatch) => ({
-  removeTodo: (payload) => dispatch(removeTodo(payload)),
-  toggleTodo: (payload) => dispatch(toggleTodo(payload)),
-});
-
-export default connect(null, mapDispatchToProps)(TodoItem);
+export default function TodoItemContainer(props) {
+  const dispatch = useDispatch();
+  const onRemove = (payload) => dispatch(removeTodo(payload));
+  const onToggle = (payload) => dispatch(toggleTodo(payload));
+  return <TodoItem onRemove={onRemove} onToggle={onToggle} {...props} />;
+}

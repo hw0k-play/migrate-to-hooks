@@ -1,8 +1,8 @@
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import TodoList from '../components/TodoList';
 
-const mapStateToProps = ({todo}) => ({
-  todos: todo.todos,
-});
-
-export default connect(mapStateToProps, null)(TodoList);
+export default function TodoListContainer(props) {
+  const todos = useSelector(state => state.todo.todos);
+  return <TodoList todos={todos} {...props} />;
+}
